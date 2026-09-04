@@ -6,11 +6,7 @@
 <title>KAGURA MOTOR WORKS ｜ MECHANIC JOB RULES</title>
 <meta name="description" content="KAGURA MOTOR WORKS 所属メカニックのための白JOBルール。全13条。" />
 
-<!-- ===================================================================
-     Discord などのリンク展開（OGP）設定
-     公開URL: https://kurosaki888.github.io/mechanic-job/
-     =================================================================== -->
-
+<!-- ===================== OGP（Discord リンク展開） ===================== -->
 <link rel="canonical" href="https://kurosaki888.github.io/mechanic-job/" />
 
 <meta property="og:type"        content="website" />
@@ -26,15 +22,12 @@
 <meta property="og:image:alt"    content="KAGURA CITY MECHANIC JOB RULES" />
 <meta property="og:locale"       content="ja_JP" />
 
-<!-- 大きい画像カードで表示させる指定（Discord もこれを見ます） -->
 <meta name="twitter:card"        content="summary_large_image" />
 <meta name="twitter:title"       content="🔧 メカニック JOB ルール ｜ KAGURA MOTOR WORKS" />
 <meta name="twitter:description" content="信頼されるプロフェッショナルであるために。白JOBルール 全13条。" />
 <meta name="twitter:image"       content="https://kurosaki888.github.io/mechanic-job/assets/ogp.jpg" />
 
-<!-- Discord の埋め込み左端に出るアクセントカラー -->
 <meta name="theme-color" content="#e0b352" />
-
 <link rel="icon" href="./assets/ogp.jpg" />
 
 <!-- Tailwind CSS -->
@@ -89,14 +82,14 @@ body{
 .bg-stage{
   position:fixed; inset:0; z-index:-4;
   background:url('./assets/bg.png') center center / cover no-repeat;
-  transform:scale(1.06); will-change:transform;
-  filter:saturate(1.0) contrast(1.04) brightness(1.12);
+  will-change:transform; backface-visibility:hidden;
+  filter:saturate(1.0) contrast(1.04) brightness(1.05);
 }
 .bg-veil{
   position:fixed; inset:0; z-index:-3;
   background:
-    linear-gradient(90deg, rgba(5,6,7,.62) 0%, rgba(5,6,7,.42) 35%, rgba(5,6,7,.12) 65%, rgba(5,6,7,.30) 100%),
-    linear-gradient(180deg, rgba(5,6,7,.45) 0%, rgba(5,6,7,.10) 30%, rgba(5,6,7,.22) 70%, rgba(5,6,7,.72) 100%);
+    linear-gradient(90deg, rgba(5,6,7,.72) 0%, rgba(5,6,7,.50) 35%, rgba(5,6,7,.18) 65%, rgba(5,6,7,.38) 100%),
+    linear-gradient(180deg, rgba(5,6,7,.50) 0%, rgba(5,6,7,.14) 30%, rgba(5,6,7,.26) 70%, rgba(5,6,7,.76) 100%);
 }
 .bg-grid{
   position:fixed; inset:0; z-index:-2; pointer-events:none; opacity:.28;
@@ -115,32 +108,48 @@ body{
   z-index:0; display:block; opacity:0; transition:opacity 1.2s ease;
 }
 #hero3d.ready{ opacity:1; }
+
+/* ヒーロー左側をしっかり落として大見出しを立たせる */
 .hero-veil{
   position:absolute; inset:0; z-index:1; pointer-events:none;
   background:
-    linear-gradient(90deg, rgba(5,6,7,.86) 0%, rgba(5,6,7,.66) 34%, rgba(5,6,7,.14) 62%, rgba(5,6,7,.34) 100%),
-    linear-gradient(180deg, rgba(5,6,7,.42) 0%, rgba(5,6,7,.05) 35%, rgba(5,6,7,.55) 100%);
+    linear-gradient(90deg, rgba(4,5,6,.92) 0%, rgba(4,5,6,.80) 32%, rgba(4,5,6,.34) 62%, rgba(4,5,6,.52) 100%),
+    linear-gradient(180deg, rgba(4,5,6,.55) 0%, rgba(4,5,6,.12) 38%, rgba(4,5,6,.72) 100%);
+}
+/* 見出し直下に置くソフトな影だまり（文字の抜けを防ぐ） */
+.hero-glowpad{
+  position:absolute; z-index:1; pointer-events:none;
+  left:-10%; top:18%; width:75%; height:60%;
+  background:radial-gradient(60% 55% at 35% 50%, rgba(4,5,6,.85) 0%, rgba(4,5,6,.45) 55%, rgba(4,5,6,0) 100%);
+  filter:blur(10px);
 }
 .hero-inner{ position:relative; z-index:2; }
-.hero-inner h1, .hero-inner .lead, .hero-inner .t-lbl{
-  text-shadow:0 2px 26px rgba(0,0,0,.85), 0 1px 3px rgba(0,0,0,.9);
-}
 
 /* ========= タイポ ========= */
 .d-en{ font-family:'Bebas Neue',sans-serif; font-weight:400; letter-spacing:.06em; line-height:.92; }
 .t-lbl{ font-family:'Rajdhani',sans-serif; font-weight:600; letter-spacing:.34em; text-transform:uppercase; }
 .jp-h{ font-family:'Zen Kaku Gothic New',sans-serif; font-weight:900; letter-spacing:.07em; line-height:1.45; }
 
+/* ゴールドを明るめに（下端が黒く沈まないよう調整） */
 .gold-text{
-  background:linear-gradient(178deg,#fff3cf 0%,#ffe9b0 22%,#e0b352 55%,#9c7526 100%);
+  background:linear-gradient(176deg,#fff6dd 0%,#ffe9b0 30%,#edc169 62%,#c1913a 100%);
   -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+/* ヒーローの特大見出し専用：発光＋輪郭で背景から完全に分離 */
+.hero-title{
+  background:linear-gradient(176deg,#fffaf0 0%,#ffeec2 26%,#f3cd7c 58%,#cf9f45 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:
+    drop-shadow(0 0 1px rgba(0,0,0,.95))
+    drop-shadow(0 4px 18px rgba(0,0,0,.95))
+    drop-shadow(0 0 46px rgba(224,179,82,.42));
 }
 .gold-line{ background:linear-gradient(90deg,transparent,var(--gold),transparent); }
 .hairline{ background:linear-gradient(90deg,var(--gold),rgba(224,179,82,0)); }
 
 .body-txt{ color:#e8e5df; font-size:15.5px; line-height:2.15; letter-spacing:.045em; font-weight:400; }
 .body-txt strong{ font-weight:700; }
-.lead{ font-size:17px; line-height:2.2; color:#f4f1eb; }
+.lead{ font-size:17px; line-height:2.2; color:#f6f3ed; }
 
 /* ========= カード ========= */
 .card{
@@ -295,8 +304,9 @@ mark.hl{ background:rgba(224,179,82,.28); color:#fff6dc; padding:0 .15em; border
   .lead{ font-size:15.5px; }
   .hero-veil{
     background:
-      linear-gradient(180deg, rgba(5,6,7,.72) 0%, rgba(5,6,7,.45) 40%, rgba(5,6,7,.85) 100%);
+      linear-gradient(180deg, rgba(4,5,6,.80) 0%, rgba(4,5,6,.52) 40%, rgba(4,5,6,.88) 100%);
   }
+  .hero-glowpad{ display:none; }
 }
 @media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } }
 </style>
@@ -314,7 +324,7 @@ mark.hl{ background:rgba(224,179,82,.28); color:#fff6dc; padding:0 .15em; border
 <header id="siteHeader" x-data="{ open:false, scrolled:false }"
         @scroll.window="scrolled = window.scrollY > 60"
         class="fixed top-0 inset-x-0 z-50 transition-all duration-500"
-        :class="scrolled ? 'bg-ink-950/92 backdrop-blur-xl border-b border-gold/20' : 'bg-gradient-to-b from-ink-950/80 to-transparent'">
+        :class="scrolled ? 'bg-ink-950/92 backdrop-blur-xl border-b border-gold/20' : 'bg-gradient-to-b from-ink-950/85 to-transparent'">
   <div class="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
     <a href="#top" data-jump="#top" class="flex items-center gap-3.5 group">
       <span class="text-[26px] leading-none group-hover:rotate-[18deg] transition-transform duration-500">🔧</span>
@@ -354,6 +364,7 @@ mark.hl{ background:rgba(224,179,82,.28); color:#fff6dc; padding:0 .15em; border
 <section id="top" class="relative min-h-[100svh] flex items-center overflow-hidden">
   <canvas id="hero3d"></canvas>
   <div class="hero-veil"></div>
+  <div class="hero-glowpad"></div>
 
   <div class="hero-inner max-w-7xl mx-auto px-5 sm:px-8 w-full pt-28 pb-20">
     <div class="max-w-3xl">
@@ -364,13 +375,15 @@ mark.hl{ background:rgba(224,179,82,.28); color:#fff6dc; padding:0 .15em; border
       </div>
 
       <h1 class="mb-8" data-hero>
-        <span class="block d-en gold-text text-[clamp(4.5rem,15vw,11rem)]">JOB RULES</span>
-        <span class="block jp-h text-[clamp(1.05rem,3vw,1.75rem)] text-neutral-50 mt-4">メカニック JOB ルール</span>
+        <span class="block d-en hero-title text-[clamp(4.5rem,15vw,11rem)]">JOB RULES</span>
+        <span class="block jp-h text-[clamp(1.05rem,3vw,1.75rem)] text-white mt-4"
+              style="text-shadow:0 2px 20px rgba(0,0,0,.95), 0 0 3px rgba(0,0,0,.9)">メカニック JOB ルール</span>
       </h1>
 
       <div class="h-px w-full max-w-md gold-line mb-9" data-hero></div>
 
-      <p class="lead mb-10 max-w-2xl" data-hero>
+      <p class="lead mb-10 max-w-2xl" data-hero
+         style="text-shadow:0 2px 18px rgba(0,0,0,.95), 0 1px 3px rgba(0,0,0,.9)">
         KAGURA MOTOR WORKS に所属するメカニックは、<br class="hidden sm:block">
         <strong class="text-gold-light font-bold">白JOBとして公平・健全な店舗運営を行うこと</strong>を目的とします。<br>
         所属スタッフは、本ルールを理解・遵守したうえで勤務してください。
@@ -382,21 +395,21 @@ mark.hl{ background:rgba(224,179,82,.28); color:#fff6dc; padding:0 .15em; border
           <span class="absolute inset-0 bg-gold-light -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
         </a>
         <button onclick="focusSearch()"
-           class="px-10 py-4 border border-gold/45 bg-ink-950/50 backdrop-blur-sm text-gold-light hover:bg-gold/15 hover:border-gold transition-all duration-300">
+           class="px-10 py-4 border border-gold/50 bg-ink-950/70 backdrop-blur-sm text-gold-light hover:bg-gold/15 hover:border-gold transition-all duration-300">
           <span class="t-lbl text-[12px]">Search Rules</span>
         </button>
       </div>
 
       <div class="grid grid-cols-3 gap-px bg-gold/20 max-w-lg" data-hero>
-        <div class="bg-ink-950/88 backdrop-blur-sm px-4 py-6 text-center">
+        <div class="bg-ink-950/92 backdrop-blur-sm px-4 py-6 text-center">
           <div class="d-en text-4xl gold-text">13</div>
           <div class="t-lbl text-[9px] text-neutral-400 mt-2">Sections</div>
         </div>
-        <div class="bg-ink-950/88 backdrop-blur-sm px-4 py-6 text-center">
+        <div class="bg-ink-950/92 backdrop-blur-sm px-4 py-6 text-center">
           <div class="d-en text-4xl gold-text">WHITE</div>
           <div class="t-lbl text-[9px] text-neutral-400 mt-2">Job Type</div>
         </div>
-        <div class="bg-ink-950/88 backdrop-blur-sm px-4 py-6 text-center">
+        <div class="bg-ink-950/92 backdrop-blur-sm px-4 py-6 text-center">
           <div class="d-en text-4xl gold-text">ZERO</div>
           <div class="t-lbl text-[9px] text-neutral-400 mt-2">Tolerance</div>
         </div>
@@ -861,7 +874,7 @@ mark.hl{ background:rgba(224,179,82,.28); color:#fff6dc; padding:0 .15em; border
   </div>
 
   <!-- ===================== OUTRO ===================== -->
-  <section id="outro" class="relative py-28 border-t border-gold/15 bg-ink-950/88 backdrop-blur-md">
+  <section id="outro" class="relative py-28 border-t border-gold/15 bg-ink-950/90 backdrop-blur-md">
     <div class="max-w-3xl mx-auto px-5 sm:px-8 text-center" data-card-plain>
       <div class="text-5xl mb-8 float">🔧</div>
       <div class="t-lbl text-[10px] text-gold/70 mb-3">Closing</div>
@@ -929,18 +942,18 @@ mark.hl{ background:rgba(224,179,82,.28); color:#fff6dc; padding:0 .15em; border
     }
     void main(){
       vec2 uv=coverUV(vUv,uRes,uTexRes);
-      uv+=uMouse*0.016;
-      float z=1.0-0.012*sin(uTime*0.18);
+      uv+=uMouse*0.014;
+      float z=1.0-0.010*sin(uTime*0.18);
       uv=(uv-0.5)*z+0.5;
       float heat=smoothstep(0.45,1.0,vUv.x);
-      uv.x+=sin(uv.y*26.0+uTime*0.7)*0.0011*heat;
-      uv.y+=cos(uv.x*22.0+uTime*0.5)*0.0009*heat;
+      uv.x+=sin(uv.y*26.0+uTime*0.7)*0.0010*heat;
+      uv.y+=cos(uv.x*22.0+uTime*0.5)*0.0008*heat;
       vec4 c=texture2D(uTex,clamp(uv,0.001,0.999));
-      c.rgb *= 1.22;
+      c.rgb *= 1.10;
       c.rgb = mix(c.rgb, c.rgb*vec3(1.05,0.99,0.90), 0.35);
       c.rgb *= 1.0 - uScroll*0.22;
       float d=distance(vUv,vec2(0.5));
-      c.rgb *= smoothstep(1.15,0.30,d)*0.30+0.70;
+      c.rgb *= smoothstep(1.15,0.30,d)*0.34+0.66;
       gl_FragColor=vec4(c.rgb,1.0);
     }`;
 
@@ -949,7 +962,7 @@ mark.hl{ background:rgba(224,179,82,.28); color:#fff6dc; padding:0 .15em; border
   plane.position.z = -8;
   scene.add(plane);
 
-  const DUST=320, pos=new Float32Array(DUST*3), spd=new Float32Array(DUST);
+  const DUST=280, pos=new Float32Array(DUST*3), spd=new Float32Array(DUST);
   for(let i=0;i<DUST;i++){
     pos[i*3]=(Math.random()-0.5)*16;
     pos[i*3+1]=(Math.random()-0.5)*10;
@@ -959,7 +972,7 @@ mark.hl{ background:rgba(224,179,82,.28); color:#fff6dc; padding:0 .15em; border
   const dustGeo=new THREE.BufferGeometry();
   dustGeo.setAttribute('position', new THREE.BufferAttribute(pos,3));
   const dustMat=new THREE.PointsMaterial({ color:0xe0b352, size:0.035, transparent:true,
-    opacity:0.5, sizeAttenuation:true, depthWrite:false, blending:THREE.AdditiveBlending });
+    opacity:0.45, sizeAttenuation:true, depthWrite:false, blending:THREE.AdditiveBlending });
   scene.add(new THREE.Points(dustGeo,dustMat));
 
   new THREE.TextureLoader().load('./assets/bg.png',(tex)=>{
@@ -995,6 +1008,9 @@ mark.hl{ background:rgba(224,179,82,.28); color:#fff6dc; padding:0 .15em; border
   new IntersectionObserver((es)=>{ visible=es[0].isIntersecting; },{threshold:0})
     .observe(document.getElementById('top'));
 
+  let lastScroll = 0;
+  window.addEventListener('scroll',()=>{ lastScroll = window.scrollY; },{passive:true});
+
   const clock=new THREE.Clock();
   (function loop(){
     requestAnimationFrame(loop);
@@ -1004,9 +1020,9 @@ mark.hl{ background:rgba(224,179,82,.28); color:#fff6dc; padding:0 .15em; border
     mouse.y+=(mouse.ty-mouse.y)*0.055;
     uniforms.uTime.value=t;
     uniforms.uMouse.value.set(mouse.x,-mouse.y);
-    uniforms.uScroll.value=Math.min(1, window.scrollY/(window.innerHeight||1));
-    camera.position.x+=(mouse.x*0.42-camera.position.x)*0.05;
-    camera.position.y+=(-mouse.y*0.26-camera.position.y)*0.05;
+    uniforms.uScroll.value=Math.min(1, lastScroll/(window.innerHeight||1));
+    camera.position.x+=(mouse.x*0.38-camera.position.x)*0.05;
+    camera.position.y+=(-mouse.y*0.22-camera.position.y)*0.05;
     camera.lookAt(0,0,-4);
     const p=dustGeo.attributes.position.array;
     for(let i=0;i<DUST;i++){
@@ -1015,7 +1031,7 @@ mark.hl{ background:rgba(224,179,82,.28); color:#fff6dc; padding:0 .15em; border
       if(p[i*3+1]>5.2){ p[i*3+1]=-5.2; p[i*3]=(Math.random()-0.5)*16; }
     }
     dustGeo.attributes.position.needsUpdate=true;
-    dustMat.opacity=0.5*(1-uniforms.uScroll.value);
+    dustMat.opacity=0.45*(1-uniforms.uScroll.value);
     renderer.render(scene,camera);
   })();
 })();
@@ -1203,9 +1219,9 @@ tsParticles.load({
   options:{
     fullScreen:{ enable:false }, detectRetina:true, fpsLimit:60,
     particles:{
-      number:{ value:30, density:{ enable:true, area:1000 } },
+      number:{ value:26, density:{ enable:true, area:1000 } },
       color:{ value:["#e0b352","#ffe9b0","#8a8a8a"] },
-      opacity:{ value:{ min:.04, max:.24 } },
+      opacity:{ value:{ min:.04, max:.22 } },
       size:{ value:{ min:.4, max:2 } },
       move:{ enable:true, speed:.3, direction:"top", straight:false, outModes:{ default:"out" } }
     },
@@ -1215,20 +1231,26 @@ tsParticles.load({
 });
 
 gsap.registerPlugin(ScrollTrigger);
-gsap.from('[data-hero]',{ y:44, opacity:0, duration:1.1, ease:'power3.out', stagger:.13, delay:.25 });
-gsap.to('#bgStage',{ yPercent:8, scale:1.13, ease:'none',
-  scrollTrigger:{ trigger:'body', start:'top top', end:'bottom bottom', scrub:.6 } });
 
-gsap.utils.toArray('[data-card], [data-card-plain]').forEach((el)=>{
-  gsap.from(el,{ y:64, opacity:0, duration:.95, ease:'power3.out',
-    scrollTrigger:{ trigger:el, start:'top 90%', toggleActions:'play none none reverse' } });
-  const n=el.querySelector('.sec-num');
-  if(n) gsap.from(n,{ x:-28, opacity:0, duration:.75, ease:'power2.out',
-    scrollTrigger:{ trigger:el, start:'top 88%' } });
+gsap.from('[data-hero]',{ y:44, opacity:0, duration:1.1, ease:'power3.out', stagger:.13, delay:.25 });
+
+/* 背景パララックス：スケール変化をやめ、上下移動のみ（滲み・カクつき対策） */
+gsap.fromTo('#bgStage', { yPercent:0 }, {
+  yPercent:6, ease:'none',
+  scrollTrigger:{ trigger:'body', start:'top top', end:'bottom bottom', scrub:1 }
 });
 
-gsap.from('[data-steps] .step',{ scale:.86, opacity:0, duration:.5, ease:'back.out(1.7)', stagger:.11,
-  scrollTrigger:{ trigger:'[data-steps]', start:'top 85%' } });
+/* カード：一度出たら戻さない（スクロールを戻したときの再フェードを廃止） */
+gsap.utils.toArray('[data-card], [data-card-plain]').forEach((el)=>{
+  gsap.from(el,{ y:44, opacity:0, duration:.8, ease:'power2.out',
+    scrollTrigger:{ trigger:el, start:'top 92%', once:true } });
+  const n=el.querySelector('.sec-num');
+  if(n) gsap.from(n,{ x:-22, opacity:0, duration:.7, ease:'power2.out',
+    scrollTrigger:{ trigger:el, start:'top 90%', once:true } });
+});
+
+gsap.from('[data-steps] .step',{ scale:.9, opacity:0, duration:.45, ease:'back.out(1.6)', stagger:.1,
+  scrollTrigger:{ trigger:'[data-steps]', start:'top 88%', once:true } });
 
 gsap.to('#progress',{ width:'100%', ease:'none',
   scrollTrigger:{ trigger:'body', start:'top top', end:'bottom bottom', scrub:true } });
