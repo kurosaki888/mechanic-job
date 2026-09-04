@@ -1,1 +1,1 @@
-# mechanic-jobルール
+# mechanic-job
