@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KAGURA MOTOR WORKS ｜ MECHANIC JOB RULES</title>
+<meta name="description" content="KAGURA MOTOR WORKS 所属メカニックのための白JOBルール。全13条。" />
+
+<!-- ===================================================================
+     ▼▼▼ Discord などのリンク展開（OGP）設定 ▼▼▼
+
+     【やること】下の SITE_URL を、公開したURLに書き換えるだけ（3箇所）
+       例）https://kagura-motor.netlify.app
+
+     ※ 相対パス（./assets/…）では画像が出ません。必ず https:// から始まる絶対URLにすること。
+     =================================================================== -->
+
+<meta property="og:type"        content="website" />
+<meta property="og:site_name"   content="KAGURA MOTOR WORKS" />
+<meta property="og:title"       content="🔧 メカニック JOB ルール ｜ KAGURA MOTOR WORKS" />
+<meta property="og:description" content="信頼されるプロフェッショナルであるために。白JOBとして公平・健全な店舗運営を行うためのルール（全13条）。勤務前に必ず確認してください。" />
+<meta property="og:url"          content="https://SITE_URL/" />
+<meta property="og:image"        content="https://SITE_URL/assets/ogp.jpg" />
+<meta property="og:image:type"   content="image/jpeg" />
+<meta property="og:image:width"  content="1536" />
+<meta property="og:image:height" content="1024" />
+<meta property="og:image:alt"    content="KAGURA CITY MECHANIC JOB RULES" />
+<meta property="og:locale"       content="ja_JP" />
+
+<!-- 大きい画像カードで表示させる指定（Discord もこれを見ます） -->
+<meta name="twitter:card"        content="summary_large_image" />
+<meta name="twitter:title"       content="🔧 メカニック JOB ルール ｜ KAGURA MOTOR WORKS" />
+<meta name="twitter:description" content="信頼されるプロフェッショナルであるために。白JOBルール 全13条。" />
+<meta name="twitter:image"       content="https://SITE_URL/assets/ogp.jpg" />
+
+<!-- Discord の埋め込み左端に出るアクセントカラー -->
+<meta name="theme-color" content="#e0b352" />
+
+<!-- ▲▲▲ OGP 設定ここまで ▲▲▲ -->
+
+<link rel="icon" href="./assets/ogp.jpg" />
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          gold: { DEFAULT:'#e0b352', light:'#ffe9b0', mid:'#c99a3c', dark:'#7a5c1c' },
+          ink:  { 950:'#050607', 900:'#0a0b0e', 800:'#101317', 700:'#171b21', 600:'#222730' },
+          danger:{ DEFAULT:'#ff5a3c', dark:'#8c2716' }
+        },
+        fontFamily: {
+          jp:   ['"Zen Kaku Gothic New"','"Noto Sans JP"','sans-serif'],
+          disp: ['"Bebas Neue"','"Zen Kaku Gothic New"','sans-serif'],
+          tech: ['"Rajdhani"','"Zen Kaku Gothic New"','sans-serif']
+        }
+      }
+    }
+  }
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<!-- Three.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<!-- tsParticles -->
+<script src="https://cdn.jsdelivr.net/npm/@tsparticles/slim@3/tsparticles.slim.bundle.min.js"></script>
+<!-- Alpine.js -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<style>
+:root{
+  --gold:#e0b352; --gold-lt:#ffe9b0; --danger:#ff5a3c;
+  --txt:#e8e5df; --txt-dim:#a9a49b;
+}
+*{ -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+html{ scroll-behavior:smooth; }
+body{
+  background:#050607; color:var(--txt);
+  font-family:'Zen Kaku Gothic New',sans-serif;
+  font-weight:400; font-size:16px; line-height:2.05; letter-spacing:.035em;
+}
+
+/* ========= 背景 ========= */
+.bg-stage{
+  position:fixed; inset:0; z-index:-4;
+  background:url('./assets/bg.png') center center / cover no-repeat;
+  transform:scale(1.06); will-change:transform;
+  filter:saturate(1.0) contrast(1.04) brightness(1.12);
+}
+.bg-veil{
+  position:fixed; inset:0; z-index:-3;
+  background:
+    linear-gradient(90deg, rgba(5,6,7,.62) 0%, rgba(5,6,7,.42) 35%, rgba(5,6,7,.12) 65%, rgba(5,6,7,.30) 100%),
+    linear-gradient(180deg, rgba(5,6,7,.45) 0%, rgba(5,6,7,.10) 30%, rgba(5,6,7,.22) 70%, rgba(5,6,7,.72) 100%);
+}
+.bg-grid{
+  position:fixed; inset:0; z-index:-2; pointer-events:none; opacity:.28;
+  background-image:
+    linear-gradient(rgba(224,179,82,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(224,179,82,.05) 1px, transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(80% 60% at 50% 40%, #000 0%, transparent 100%);
+  -webkit-mask-image:radial-gradient(80% 60% at 50% 40%, #000 0%, transparent 100%);
+}
+#particles{ position:fixed; inset:0; z-index:-1; pointer-events:none; }
+
+/* ===== Three.js hero canvas ===== */
+#hero3d{
+  position:absolute; inset:0; width:100%; height:100%;
+  z-index:0; display:block; opacity:0; transition:opacity 1.2s ease;
+}
+#hero3d.ready{ opacity:1; }
+.hero-veil{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:
+    linear-gradient(90deg, rgba(5,6,7,.86) 0%, rgba(5,6,7,.66) 34%, rgba(5,6,7,.14) 62%, rgba(5,6,7,.34) 100%),
+    linear-gradient(180deg, rgba(5,6,7,.42) 0%, rgba(5,6,7,.05) 35%, rgba(5,6,7,.55) 100%);
+}
+.hero-inner{ position:relative; z-index:2; }
+.hero-inner h1, .hero-inner .lead, .hero-inner .t-lbl{
+  text-shadow:0 2px 26px rgba(0,0,0,.85), 0 1px 3px rgba(0,0,0,.9);
+}
+
+/* ========= タイポ ========= */
+.d-en{ font-family:'Bebas Neue',sans-serif; font-weight:400; letter-spacing:.06em; line-height:.92; }
+.t-lbl{ font-family:'Rajdhani',sans-serif; font-weight:600; letter-spacing:.34em; text-transform:uppercase; }
+.jp-h{ font-family:'Zen Kaku Gothic New',sans-serif; font-weight:900; letter-spacing:.07em; line-height:1.45; }
+
+.gold-text{
+  background:linear-gradient(178deg,#fff3cf 0%,#ffe9b0 22%,#e0b352 55%,#9c7526 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.gold-line{ background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+.hairline{ background:linear-gradient(90deg,var(--gold),rgba(224,179,82,0)); }
+
+.body-txt{ color:#e8e5df; font-size:15.5px; line-height:2.15; letter-spacing:.045em; font-weight:400; }
+.body-txt strong{ font-weight:700; }
+.lead{ font-size:17px; line-height:2.2; color:#f4f1eb; }
+
+/* ========= カード ========= */
+.card{
+  position:relative;
+  background:linear-gradient(165deg, rgba(11,13,16,.955) 0%, rgba(6,7,9,.965) 100%);
+  border:1px solid rgba(224,179,82,.20);
+  backdrop-filter:blur(10px);
+  box-shadow:0 30px 70px -30px rgba(0,0,0,1), inset 0 1px 0 rgba(255,255,255,.035);
+  transition:border-color .35s ease, transform .35s ease, box-shadow .35s ease;
+}
+.card:hover{ border-color:rgba(224,179,82,.45); transform:translateY(-3px);
+  box-shadow:0 44px 84px -32px rgba(0,0,0,1), 0 0 60px -25px rgba(224,179,82,.28); }
+.card::before,.card::after{
+  content:''; position:absolute; width:26px; height:26px; border:1.5px solid var(--gold);
+  opacity:.6; transition:opacity .35s, width .35s, height .35s;
+}
+.card::before{ top:-1px; left:-1px; border-right:0; border-bottom:0; }
+.card::after { bottom:-1px; right:-1px; border-left:0; border-top:0; }
+.card:hover::before,.card:hover::after{ opacity:1; width:38px; height:38px; }
+.card.is-hit{ border-color:rgba(224,179,82,.6); box-shadow:0 0 0 1px rgba(224,179,82,.25), 0 0 70px -30px rgba(224,179,82,.5); }
+
+@keyframes targetFlash{
+  0%   { box-shadow:0 0 0 1px rgba(224,179,82,.85), 0 0 90px -20px rgba(224,179,82,.75); border-color:rgba(224,179,82,.9); }
+  100% { box-shadow:0 0 0 1px rgba(224,179,82,0),   0 0 90px -20px rgba(224,179,82,0);   border-color:rgba(224,179,82,.20); }
+}
+.card.jump-target{ animation:targetFlash 1.8s ease-out 1; }
+
+.sec-num{
+  font-family:'Bebas Neue',sans-serif; font-size:clamp(3.4rem,7vw,5.2rem); line-height:.8;
+  color:transparent; -webkit-text-stroke:1.4px rgba(224,179,82,.55);
+  letter-spacing:.02em; position:relative;
+}
+.sec-num::after{
+  content:attr(data-n); position:absolute; inset:0;
+  background:linear-gradient(180deg,#ffe9b0,#8a681f);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  opacity:0; transition:opacity .4s ease;
+}
+.card:hover .sec-num::after{ opacity:1; }
+
+/* ========= リスト ========= */
+.rule-li{ position:relative; padding-left:1.75rem; color:#e6e3dd; }
+.rule-li::before{
+  content:''; position:absolute; left:.3rem; top:.88em; width:7px; height:7px;
+  background:var(--gold); transform:rotate(45deg); box-shadow:0 0 8px rgba(224,179,82,.6);
+}
+.ban-li{ color:#efe6e2; }
+.ban-li::before{ background:var(--danger); box-shadow:0 0 8px rgba(255,90,60,.55); }
+
+.note{ border-left:3px solid var(--gold);
+  background:linear-gradient(90deg, rgba(224,179,82,.10), rgba(224,179,82,.01)); padding:1.1rem 1.5rem; }
+.alert{ border-left:3px solid var(--danger);
+  background:linear-gradient(90deg, rgba(255,90,60,.13), rgba(255,90,60,.02)); padding:1.4rem 1.6rem; }
+.chip{
+  font-family:'Rajdhani',sans-serif; font-weight:700; letter-spacing:.28em; font-size:11px;
+  border:1px solid rgba(224,179,82,.45); color:var(--gold-lt);
+  padding:.35rem .9rem; text-transform:uppercase;
+}
+
+/* ========= 索引バー ========= */
+#indexbar{
+  position:sticky; top:64px; z-index:40;
+  background:rgba(5,6,7,.93); backdrop-filter:blur(18px);
+  border-top:1px solid rgba(224,179,82,.14); border-bottom:1px solid rgba(224,179,82,.14);
+}
+.search-wrap{ position:relative; }
+#search{
+  width:100%; background:rgba(16,19,23,.92); border:1px solid rgba(224,179,82,.22);
+  color:#f0ede7; font-family:'Zen Kaku Gothic New',sans-serif; font-size:14.5px;
+  padding:.85rem 2.9rem .85rem 2.9rem; letter-spacing:.05em; outline:none;
+  transition:border-color .25s, box-shadow .25s;
+}
+#search::placeholder{ color:#6f6a62; letter-spacing:.08em; }
+#search:focus{ border-color:rgba(224,179,82,.65); box-shadow:0 0 0 3px rgba(224,179,82,.10); }
+.s-icon{ position:absolute; left:1rem; top:50%; transform:translateY(-50%); color:var(--gold); opacity:.8; pointer-events:none; }
+#clearBtn{ position:absolute; right:.85rem; top:50%; transform:translateY(-50%); color:#8a857c; display:none; }
+#clearBtn:hover{ color:var(--gold); }
+.kbd{
+  font-family:'Rajdhani',sans-serif; font-size:11px; font-weight:700; letter-spacing:.12em;
+  border:1px solid rgba(224,179,82,.3); color:#8a857c; padding:.1rem .45rem;
+}
+.fchip{
+  font-family:'Rajdhani',sans-serif; font-weight:700; font-size:11.5px; letter-spacing:.2em;
+  text-transform:uppercase; padding:.5rem 1rem; border:1px solid rgba(224,179,82,.22);
+  color:#a9a49b; background:rgba(16,19,23,.8); white-space:nowrap;
+  transition:all .25s ease; cursor:pointer;
+}
+.fchip:hover{ color:var(--gold-lt); border-color:rgba(224,179,82,.5); }
+.fchip.active{ color:#050607; background:var(--gold); border-color:var(--gold); }
+.fchip.active.danger-chip{ background:var(--danger); border-color:var(--danger); color:#0a0405; }
+
+mark.hl{ background:rgba(224,179,82,.28); color:#fff6dc; padding:0 .15em; border-radius:2px;
+  box-shadow:0 0 12px rgba(224,179,82,.35); }
+
+/* ========= サイドTOC ========= */
+#toc{
+  position:fixed; top:50%; z-index:35; display:none;
+  left:calc(50vw - 32rem - 5.75rem);
+  transform:translateY(-50%) translateX(-14px);
+  opacity:0; pointer-events:none;
+  transition:opacity .55s ease, transform .55s ease;
+}
+#toc.show{ opacity:1; pointer-events:auto; transform:translateY(-50%) translateX(0); }
+@media (min-width:1300px){ #toc{ display:block; } }
+
+.toc-item{ display:flex; align-items:center; gap:.7rem; padding:.28rem 0; cursor:pointer;
+  color:#8b857b; transition:color .3s ease; }
+.toc-item:hover{ color:var(--gold-lt); }
+.toc-bar{ width:16px; height:2px; background:currentColor; transition:width .35s ease, background .3s; flex:none;
+  box-shadow:0 0 6px rgba(0,0,0,.9); }
+.toc-item.active{ color:var(--gold-lt); }
+.toc-item.active .toc-bar{ width:34px; background:var(--gold); box-shadow:0 0 10px rgba(224,179,82,.7); }
+.toc-label{
+  font-family:'Rajdhani',sans-serif; font-size:11px; font-weight:600; letter-spacing:.14em;
+  opacity:0; transform:translateX(-6px); transition:all .3s ease; white-space:nowrap;
+  background:rgba(5,6,7,.88); padding:.15rem .45rem;
+}
+.toc-item:hover .toc-label,.toc-item.active .toc-label{ opacity:1; transform:translateX(0); }
+.toc-item.hidden-sec{ opacity:.2; pointer-events:none; }
+
+/* ========= アニメーション ========= */
+@keyframes floatY{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+.float{ animation:floatY 4.5s ease-in-out infinite; }
+@keyframes glowPulse{ 0%,100%{ box-shadow:0 0 0 0 rgba(224,179,82,0) } 50%{ box-shadow:0 0 30px -6px rgba(224,179,82,.45) } }
+.glow{ animation:glowPulse 3.4s ease-in-out infinite; }
+@keyframes sweep{ from{ transform:translateX(-120%) } to{ transform:translateX(220%) } }
+.sweep{ position:relative; overflow:hidden; }
+.sweep::after{ content:''; position:absolute; top:0; bottom:0; width:45%;
+  background:linear-gradient(90deg,transparent,rgba(224,179,82,.08),transparent);
+  animation:sweep 6s linear infinite; pointer-events:none; }
+@keyframes flick{ 0%,100%{opacity:1} 48%{opacity:.35} 52%{opacity:1} }
+.flick{ animation:flick 2.4s ease-in-out infinite; }
+
+#progress{ position:fixed; top:0; left:0; height:2px; width:0%; z-index:60;
+  background:linear-gradient(90deg,#7a5c1c,#ffe9b0,#e0b352); box-shadow:0 0 14px rgba(224,179,82,.7); }
+::selection{ background:rgba(224,179,82,.35); color:#fff; }
+::-webkit-scrollbar{ width:9px } ::-webkit-scrollbar-track{ background:#0a0b0e }
+::-webkit-scrollbar-thumb{ background:#453718 } ::-webkit-scrollbar-thumb:hover{ background:var(--gold) }
+[x-cloak]{ display:none !important; }
+.sec-hidden{ display:none !important; }
+
+.navlink{ position:relative; }
+.navlink::after{
+  content:''; position:absolute; left:0; right:100%; bottom:-6px; height:1px;
+  background:var(--gold); transition:right .3s ease;
+}
+.navlink:hover::after{ right:0; }
+
+@media (max-width:640px){
+  body{ font-size:15px; }
+  .body-txt{ font-size:14.5px; line-height:2.1; }
+  .lead{ font-size:15.5px; }
+  .hero-veil{
+    background:
+      linear-gradient(180deg, rgba(5,6,7,.72) 0%, rgba(5,6,7,.45) 40%, rgba(5,6,7,.85) 100%);
+  }
+}
+@media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } }
+</style>
+</head>
+
+<body>
+
+<div class="bg-stage" id="bgStage"></div>
+<div class="bg-veil"></div>
+<div class="bg-grid"></div>
+<div id="particles"></div>
+<div id="progress"></div>
+
+<!-- ===================== NAV ===================== -->
+<header id="siteHeader" x-data="{ open:false, scrolled:false }"
+        @scroll.window="scrolled = window.scrollY > 60"
+        class="fixed top-0 inset-x-0 z-50 transition-all duration-500"
+        :class="scrolled ? 'bg-ink-950/92 backdrop-blur-xl border-b border-gold/20' : 'bg-gradient-to-b from-ink-950/80 to-transparent'">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+    <a href="#top" data-jump="#top" class="flex items-center gap-3.5 group">
+      <span class="text-[26px] leading-none group-hover:rotate-[18deg] transition-transform duration-500">🔧</span>
+      <span class="leading-none">
+        <span class="block t-lbl text-[9px] text-gold/75 mb-1">Kagura City</span>
+        <span class="block d-en text-[22px] gold-text">MECHANIC JOB RULES</span>
+      </span>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-8">
+      <a href="#rules"  data-jump="#rules"
+         class="navlink t-lbl text-[11px] text-neutral-300 hover:text-gold transition-colors">Rules</a>
+      <a href="#sec-12" data-jump="#sec-12"
+         class="navlink t-lbl text-[11px] text-neutral-300 hover:text-gold transition-colors">Violation</a>
+      <a href="#outro"  data-jump="#outro"
+         class="navlink t-lbl text-[11px] text-neutral-300 hover:text-gold transition-colors">Closing</a>
+      <button onclick="focusSearch()" class="navlink t-lbl text-[11px] text-neutral-300 hover:text-gold transition-colors flex items-center gap-2">
+        Search <span class="kbd">/</span>
+      </button>
+      <span class="chip glow">White Job</span>
+    </nav>
+
+    <button @click="open=!open" class="lg:hidden text-gold text-2xl leading-none" aria-label="menu">
+      <span x-show="!open">☰</span><span x-show="open" x-cloak>✕</span>
+    </button>
+  </div>
+
+  <div x-show="open" x-cloak x-transition
+       class="lg:hidden bg-ink-950/97 border-t border-gold/20 px-7 py-6 space-y-4">
+    <a @click="open=false" href="#rules"  data-jump="#rules"  class="block t-lbl text-xs text-neutral-300 hover:text-gold">Rules ／ ルール一覧</a>
+    <a @click="open=false" href="#sec-12" data-jump="#sec-12" class="block t-lbl text-xs text-neutral-300 hover:text-gold">Violation ／ 違反対応</a>
+    <a @click="open=false" href="#outro"  data-jump="#outro"  class="block t-lbl text-xs text-neutral-300 hover:text-gold">Closing ／ 最後に</a>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section id="top" class="relative min-h-[100svh] flex items-center overflow-hidden">
+  <canvas id="hero3d"></canvas>
+  <div class="hero-veil"></div>
+
+  <div class="hero-inner max-w-7xl mx-auto px-5 sm:px-8 w-full pt-28 pb-20">
+    <div class="max-w-3xl">
+
+      <div class="flex items-center gap-4 mb-8" data-hero>
+        <span class="h-px w-14 hairline"></span>
+        <span class="t-lbl text-[11px] text-gold">Kagura Motor Works</span>
+      </div>
+
+      <h1 class="mb-8" data-hero>
+        <span class="block d-en gold-text text-[clamp(4.5rem,15vw,11rem)]">JOB RULES</span>
+        <span class="block jp-h text-[clamp(1.05rem,3vw,1.75rem)] text-neutral-50 mt-4">メカニック JOB ルール</span>
+      </h1>
+
+      <div class="h-px w-full max-w-md gold-line mb-9" data-hero></div>
+
+      <p class="lead mb-10 max-w-2xl" data-hero>
+        KAGURA MOTOR WORKS に所属するメカニックは、<br class="hidden sm:block">
+        <strong class="text-gold-light font-bold">白JOBとして公平・健全な店舗運営を行うこと</strong>を目的とします。<br>
+        所属スタッフは、本ルールを理解・遵守したうえで勤務してください。
+      </p>
+
+      <div class="flex flex-wrap gap-4 mb-16" data-hero>
+        <a href="#rules" data-jump="#rules" class="group relative px-10 py-4 bg-gold text-ink-950 overflow-hidden">
+          <span class="relative z-10 t-lbl text-[12px] font-bold">Read Rules</span>
+          <span class="absolute inset-0 bg-gold-light -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
+        </a>
+        <button onclick="focusSearch()"
+           class="px-10 py-4 border border-gold/45 bg-ink-950/50 backdrop-blur-sm text-gold-light hover:bg-gold/15 hover:border-gold transition-all duration-300">
+          <span class="t-lbl text-[12px]">Search Rules</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-3 gap-px bg-gold/20 max-w-lg" data-hero>
+        <div class="bg-ink-950/88 backdrop-blur-sm px-4 py-6 text-center">
+          <div class="d-en text-4xl gold-text">13</div>
+          <div class="t-lbl text-[9px] text-neutral-400 mt-2">Sections</div>
+        </div>
+        <div class="bg-ink-950/88 backdrop-blur-sm px-4 py-6 text-center">
+          <div class="d-en text-4xl gold-text">WHITE</div>
+          <div class="t-lbl text-[9px] text-neutral-400 mt-2">Job Type</div>
+        </div>
+        <div class="bg-ink-950/88 backdrop-blur-sm px-4 py-6 text-center">
+          <div class="d-en text-4xl gold-text">ZERO</div>
+          <div class="t-lbl text-[9px] text-neutral-400 mt-2">Tolerance</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <a href="#rules" data-jump="#rules" class="absolute bottom-7 left-1/2 -translate-x-1/2 z-[2] t-lbl text-[10px] text-gold/80 float">Scroll ▾</a>
+</section>
+
+<!-- ===================== 索引バー ===================== -->
+<div id="indexbar">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 py-4">
+    <div class="flex flex-col lg:flex-row lg:items-center gap-4">
+
+      <div class="search-wrap flex-1">
+        <span class="s-icon text-[15px]">🔍</span>
+        <input id="search" type="text" autocomplete="off" spellcheck="false"
+               placeholder="ルールを検索…（例：パーツ / 無料 / 解雇 / 新人）">
+        <button id="clearBtn" aria-label="clear" class="text-lg leading-none">✕</button>
+      </div>
+
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 lg:pb-0">
+        <button class="fchip active" data-filter="all">All 13</button>
+        <button class="fchip danger-chip" data-filter="ban">🚫 禁止事項</button>
+        <button class="fchip danger-chip" data-filter="critical">🚨 即解雇級</button>
+        <button class="fchip" data-filter="check">❓ 要確認</button>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mt-3">
+      <p id="resultInfo" class="t-lbl text-[10px] text-neutral-500">13 Sections</p>
+      <p class="t-lbl text-[10px] text-neutral-600 hidden sm:block">Press <span class="kbd">/</span> to search ・ <span class="kbd">Esc</span> to reset</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== サイドTOC ===================== -->
+<nav id="toc" aria-label="rule index"></nav>
+
+<!-- ===================== RULES ===================== -->
+<main id="rules" class="relative">
+  <div id="ruleList" class="max-w-5xl mx-auto px-5 sm:px-8 pt-10 pb-28 space-y-7">
+
+    <!-- 01 -->
+    <section class="card p-7 sm:p-11 sweep" data-card data-sec id="sec-01"
+             data-n="01" data-title="白JOBについて" data-en="White Job"
+             data-tags="ban critical"
+             data-kw="白ジョブ 犯罪 共犯 逃走 隠蔽 汚職 解雇">
+      <div class="flex items-start gap-6 mb-8">
+        <span class="sec-num shrink-0" data-n="01">01</span>
+        <div class="pt-2">
+          <div class="t-lbl text-[10px] text-gold/70 mb-2">White Job</div>
+          <h2 class="jp-h text-xl sm:text-[26px] text-neutral-50">⚪ 白JOBについて</h2>
+          <div class="h-px w-24 hairline mt-4"></div>
+        </div>
+      </div>
+      <p class="body-txt mb-7">
+        メカニックJOBは<strong class="text-gold-light">白JOB</strong>です。<br>
+        そのため、メカニックとして勤務・所属している間は、以下の行為を禁止します。
+      </p>
+      <ul class="body-txt space-y-3 mb-8">
+        <li class="rule-li ban-li">犯罪への参加</li>
+        <li class="rule-li ban-li">犯罪の手助け・共犯行為</li>
+        <li class="rule-li ban-li">犯罪者の逃走・隠蔽への協力</li>
+        <li class="rule-li ban-li">犯罪目的での車両・パーツ・設備の提供</li>
+        <li class="rule-li ban-li">メカニックJOBの権限を利用した犯罪行為</li>
+      </ul>
+      <div class="alert">
+        <p class="jp-h text-danger text-base mb-3">🚨 犯罪へ参加した場合</p>
+        <p class="body-txt">
+          犯罪へ参加した場合は、<strong class="text-danger">汚職行為とみなし解雇致します。</strong><br>
+          「少しだけ」「知り合いに頼まれた」などの理由であっても、犯罪参加は認めません。
+        </p>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section class="card p-7 sm:p-11" data-card data-sec id="sec-02"
+             data-n="02" data-title="出勤・退勤" data-en="Clock In / Out"
+             data-tags=""
+             data-kw="無線 装備 専用品 返却 出勤 退勤 シフト">
+      <div class="flex items-start gap-6 mb-8">
+        <span class="sec-num shrink-0" data-n="02">02</span>
+        <div class="pt-2">
+          <div class="t-lbl text-[10px] text-gold/70 mb-2">Clock In / Out</div>
+          <h2 class="jp-h text-xl sm:text-[26px] text-neutral-50">📻 出勤・退勤</h2>
+          <div class="h-px w-24 hairline mt-4"></div>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-5">
+        <div class="border border-gold/15 bg-ink-900/80 p-6">
+          <h3 class="t-lbl text-[11px] text-gold mb-5">Clock In ／ 出勤</h3>
+          <ul class="body-txt space-y-3">
+            <li class="rule-li">出勤したら、指定された店舗無線へ参加すること。</li>
+            <li class="rule-li">出勤中はメカニックとして行動すること。</li>
+            <li class="rule-li">JOB装備・専用品を適切に管理すること。</li>
+          </ul>
+        </div>
+        <div class="border border-gold/15 bg-ink-900/80 p-6">
+          <h3 class="t-lbl text-[11px] text-gold mb-5">Clock Out ／ 退勤</h3>
+          <ul class="body-txt space-y-3">
+            <li class="rule-li">退勤時は、メカニック専用アイテムを指定された場所へ返却すること。</li>
+            <li class="rule-li">退勤後であっても、店舗資産・専用品を持ち出したまま犯罪禁止。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section class="card p-7 sm:p-11" data-card data-sec id="sec-03"
+             data-n="03" data-title="修理・カスタム" data-en="Repair &amp; Custom"
+             data-tags="ban"
+             data-kw="料金 値引き 無料 半額 請求 見積 友達 知り合い サービス">
+      <div class="flex items-start gap-6 mb-8">
+        <span class="sec-num shrink-0" data-n="03">03</span>
+        <div class="pt-2">
+          <div class="t-lbl text-[10px] text-gold/70 mb-2">Repair &amp; Custom</div>
+          <h2 class="jp-h text-xl sm:text-[26px] text-neutral-50">🔧 修理・カスタム</h2>
+          <div class="h-px w-24 hairline mt-4"></div>
+        </div>
+      </div>
+      <p class="body-txt mb-8">
+        修理・カスタムは、<strong class="text-gold-light">店舗で定められた料金・サービス内容</strong>に従ってください。
+      </p>
+      <h3 class="t-lbl text-[11px] text-danger mb-5">Prohibited ／ 禁止事項</h3>
+      <ul class="body-txt grid sm:grid-cols-2 gap-x-10 gap-y-3 mb-8">
+        <li class="rule-li ban-li">無料での修理・カスタム</li>
+        <li class="rule-li ban-li">個人的な判断による値引き</li>
+        <li class="rule-li ban-li">身内・友人への特別価格</li>
+        <li class="rule-li ban-li">作業していない内容の請求</li>
+        <li class="rule-li ban-li">作業内容と異なる請求</li>
+        <li class="rule-li ban-li">顧客の許可なくカスタム内容を変更する</li>
+        <li class="rule-li ban-li sm:col-span-2">店舗を通さない個人的な修理・カスタム営業</li>
+      </ul>
+      <div class="note">
+        <p class="jp-h text-gold-light text-[15px]">「友達だから無料」「知り合いだから半額」なども禁止です。</p>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section class="card p-7 sm:p-11" data-card data-sec id="sec-04"
+             data-n="04" data-title="車両・パーツの取り扱い" data-en="Vehicles &amp; Parts"
+             data-tags="ban critical"
+             data-kw="パーツ 車両 取り外し 抜き取り ブースティング 外装 性能">
+      <div class="flex items-start gap-6 mb-8">
+        <span class="sec-num shrink-0" data-n="04">04</span>
+        <div class="pt-2">
+          <div class="t-lbl text-[10px] text-gold/70 mb-2">Vehicles &amp; Parts</div>
+          <h2 class="jp-h text-xl sm:text-[26px] text-neutral-50">🚗 車両・パーツの取り扱い</h2>
+          <div class="h-px w-24 hairline mt-4"></div>
+        </div>
+      </div>
+      <p class="body-txt mb-8">顧客・市民の車両およびパーツは、慎重に取り扱ってください。</p>
+      <h3 class="t-lbl text-[11px] text-danger mb-5">🚫 Prohibited ／ 禁止事項</h3>
+      <ul class="body-txt grid sm:grid-cols-2 gap-x-10 gap-y-3 mb-8">
+        <li class="rule-li ban-li">他人の車両からパーツを無断で取り外す</li>
+        <li class="rule-li ban-li">取り外したパーツを自分の車両へ使用する</li>
+        <li class="rule-li ban-li">取り外したパーツを別の車両へ使用する</li>
+        <li class="rule-li ban-li">顧客の許可なく性能・外装を変更する</li>
+        <li class="rule-li ban-li">ブースティング等で入手した車両からパーツを抜き取る</li>
+        <li class="rule-li ban-li">店舗の作業目的以外でパーツを使用する</li>
+      </ul>
+      <div class="alert">
+        <p class="jp-h text-danger text-[15px]">車両からパーツを抜き取る行為は、理由を問わず禁止です。</p>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section class="card p-7 sm:p-11" data-card data-sec id="sec-05"
+             data-n="05" data-title="スタッシュ・店舗資産" data-en="Stash &amp; Assets"
+             data-tags="ban critical"
+             data-kw="スタッシュ 資産 素材 クラフト 持ち出し 譲渡 販売 横流し">
+      <div class="flex items-start gap-6 mb-8">
+        <span class="sec-num shrink-0" data-n="05">05</span>
+        <div class="pt-2">
+          <div class="t-lbl text-[10px] text-gold/70 mb-2">Stash &amp; Assets</div>
+          <h2 class="jp-h text-xl sm:text-[26px] text-neutral-50">📦 スタッシュ・店舗資産</h2>
+          <div class="h-px w-24 hairline mt-4"></div>
+        </div>
+      </div>
+      <p class="body-txt mb-8">
+        店舗スタッシュ内にある素材・パーツ・アイテム・クラフト品は、<strong class="text-gold-light">店舗業務のための資産</strong>です。<br>
+        以下の行為を禁止します。
+      </p>
+      <ul class="body-txt grid sm:grid-cols-2 gap-x-10 gap-y-3 mb-8">
+        <li class="rule-li ban-li">無断での持ち出し</li>
+        <li class="rule-li ban-li">個人的な使用</li>
+        <li class="rule-li ban-li">個人車両への使用</li>
+        <li class="rule-li ban-li">市民への無断譲渡</li>
+        <li class="rule-li ban-li">市民への個人的な販売</li>
+        <li class="rule-li ban-li">他組織・他店舗への譲渡</li>
+        <li class="rule-li ban-li">犯罪目的での使用</li>
+        <li class="rule-li ban-li">店舗資産を利用した個人的な利益の獲得</li>
+      </ul>
+      <div class="note">
+        <p class="body-txt">
+          メカニッククラフトで作成したアイテムについても、<strong class="text-gold-light">店舗が定めた用途・販売方法に従うこと。</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- 06 -->
+    <section class="card p-7 sm:p-11" data-card data-sec id="sec-06"
+             data-n="06" data-title="売上・金銭管理" data-en="Revenue &amp; Cash"
+             data-tags="check"
+             data-kw="売上 金銭 料金 値引き 取引 信用 会計 責任者">
+      <div class="flex items-start gap-6 mb-8">
+        <span class="sec-num shrink-0" data-n="06">06</span>
+        <div class="pt-2">
+          <div class="t-lbl text-[10px] text-gold/70 mb-2">Revenue &amp; Cash</div>
+          <h2 class="jp-h text-xl sm:text-[26px] text-neutral-50">💰 売上・金銭管理</h2>
+          <div class="h-px w-24 hairline mt-4"></div>
+        </div>
+      </div>
+      <ul class="body-txt space-y-3 mb-8">
+        <li class="rule-li">店舗で定められた料金を使用すること。</li>
+        <li class="rule-li">個人的な値引き・無料対応を行わないこと。</li>
+        <li class="rule-li">店舗売上を個人的に使用しないこと。</li>
+        <li class="rule-li">店舗を介さない個人的な取引を行わないこと。</li>
+        <li class="rule-li">店舗の信用を利用して個人的な利益を得ないこと。</li>
+      </ul>
+      <div class="note">
+        <p class="body-txt">金銭に関する不明点がある場合は、自己判断せず責任者へ確認してください。</p>
+      </div>
+    </section>
+
+    <!-- 07 -->
+    <section class="card p-7 sm:p-11" data-card data-sec id="sec-07"
+             data-n="07" data-title="犯罪者・指名手配者への対応" data-en="Criminals &amp; Wanted"
+             data-tags="ban critical check"
+             data-kw="指名手配 犯罪者 警察 カーチェイス 逃走 追跡 現場">
+      <div class="flex items-start gap-6 mb-8">
+        <span class="sec-num shrink-0" data-n="07">07</span>
+        <div class="pt-2">
+          <div class="t-lbl text-[10px] text-gold/70 mb-2">Criminals &amp; Wanted</div>
+          <h2 class="jp-h text-xl sm:text-[26px] text-neutral-50">🚨 犯罪者・指名手配者への対応</h2>
+          <div class="h-px w-24 hairline mt-4"></div>
+        </div>
+      </div>
+      <p class="body-txt mb-8">
+        メカニックは白JOBのため、<strong class="text-gold-light">犯罪への意図的な協力は禁止</strong>です。
+      </p>
+
+      <h3 class="t-lbl text-[11px] text-gold mb-4">修理依頼を受けた場合</h3>
+      <p class="body-txt mb-5">通常の市民として修理依頼を受けること自体は問題ありません。ただし、</p>
+      <ul class="body-txt space-y-3 mb-5">
+        <li class="rule-li ban-li">犯罪中の人物</li>
+        <li class="rule-li ban-li">警察から追跡されている人物</li>
+        <li class="rule-li ban-li">犯罪に使用している車両</li>
+      </ul>
+      <p class="body-txt mb-8">
+        などに対し、<strong class="text-danger">逃走を助ける目的で修理・カスタムを行うことは禁止</strong>です。
+      </p>
+
+      <div class="alert">
+        <p class="jp-h text-danger text-base mb-3">🚔 カーチェイス・犯罪現場</p>
+        <p class="body-txt">
+          犯罪・カーチェイス等が発生している現場へ、メカニックとして意図的に向かい、修理や車両対応を行うことは禁止します。<br>
+          犯罪現場への不正介入とならないよう、状況を見て対応してください。<br>
+          判断に迷う場合は、対応を中止して責任者へ確認してください。
+        </p>
+      </div>
+    </section>
+
+    <!-- 08 -->
+    <section class="card p-7 sm:p-11" data-card data-sec id="sec-08"
+             data-n="08" data-title="JOB権限・設備の利用" data-en="Job Authority"
+             data-tags="ban critical"
+             data-kw="権限 設備 私的利用 不正 業務 利益">
+      <div class="flex items-start gap-6 mb-8">
+        <span class="sec-num shrink-0" data-n="08">08</span>
+        <div class="pt-2">
+          <div class="t-lbl text-[10px] text-gold/70 mb-2">Job Authority</div>
+          <h2 class="jp-h text-xl sm:text-[26px] text-neutral-50">🔑 JOB権限・設備の利用</h2>
+          <div class="h-px w-24 hairline mt-4"></div>
+        </div>
+      </div>
+      <p class="body-txt mb-8">
+        メカニックJOBの権限・設備は、<strong class="text-gold-light">業務のために使用するもの</strong>です。
+      </p>
+      <h3 class="t-lbl text-[11px] text-danger mb-5">Prohibited ／ 禁止事項</h3>
+      <ul class="body-txt space-y-3 mb-8">
+        <li class="rule-li ban-li">JOB権限を利用した個人的な利益の獲得</li>
+        <li class="rule-li ban-li">JOB専用設備の私的利用</li>
+        <li class="rule-li ban-li">JOB権限を利用した犯罪への協力</li>
+        <li class="rule-li ban-li">店舗設備を利用した不正行為</li>
+        <li class="rule-li ban-li">権限を利用して他人に不当な利益を与える行為</li>
+      </ul>
+      <div class="note">
+        <p class="jp-h text-gold-light text-[15px]">「できるからやる」ではなく、「業務として必要か」を基準に判断してください。</p>
+      </div>
+    </section>
+
+    <!-- 09 -->
+    <section class="card p-7 sm:p-11" data-card data-sec id="sec-09"
+             data-n="09" data-title="スタッフ間のルール" data-en="Staff Conduct"
+             data-tags="check"
+             data-kw="スタッフ 嫌がらせ 迷惑 トラブル 新人 情報 外部">
+      <div class="flex items-start gap-6 mb-8">
+        <span class="sec-num shrink-0" data-n="09">09</span>
+        <div class="pt-2">
+          <div class="t-lbl text-[10px] text-gold/70 mb-2">Staff Conduct</div>
+          <h2 class="jp-h text-xl sm:text-[26px] text-neutral-50">🤝 スタッフ間のルール</h2>
+          <div class="h-px w-24 hairline mt-4"></div>
+        </div>
+      </div>
+      <ul class="body-txt space-y-3">
+        <li class="rule-li">他スタッフへの嫌がらせ・迷惑行為を禁止します。</li>
+        <li class="rule-li">新人にも適切な対応をしてください。</li>
+        <li class="rule-li">独断でルールを追加したり、処罰を行ったりしないでください。</li>
+        <li class="rule-li">スタッフ間でトラブルが発生した場合は、責任者へ相談してください。</li>
+        <li class="rule-li">店舗内の重要情報を無断で外部へ公開しないでください。</li>
+      </ul>
+    </section>
+
+    <!-- 10 -->
+    <section class="card p-7 sm:p-11" data-card data-sec id="sec-10"
+             data-n="10" data-title="接客・市民対応" data-en="Customer Service"
+             data-tags=""
+             data-kw="接客 市民 顧客 態度 評判 信用 クレーム">
+      <div class="flex items-start gap-6 mb-8">
+        <span class="sec-num shrink-0" data-n="10">10</span>
+        <div class="pt-2">
+          <div class="t-lbl text-[10px] text-gold/70 mb-2">Customer Service</div>
+          <h2 class="jp-h text-xl sm:text-[26px] text-neutral-50">👤 接客・市民対応</h2>
+          <div class="h-px w-24 hairline mt-4"></div>
+        </div>
+      </div>
+      <p class="body-txt mb-8">メカニックは市民と直接関わるJOBです。</p>
+      <ul class="body-txt space-y-3">
+        <li class="rule-li">丁寧な接客を心掛けること。</li>
+        <li class="rule-li">相手によって態度・料金を意図的に変えないこと。</li>
+        <li class="rule-li">トラブルが発生した場合は、感情的にならず責任者へ相談すること。</li>
+        <li class="rule-li">店舗の評判・信用を損なう行為を行わないこと。</li>
+      </ul>
+    </section>
+
+    <!-- 11 -->
+    <section class="card p-7 sm:p-11" data-card data-sec id="sec-11"
+             data-n="11" data-title="新人スタッフ" data-en="New Staff"
+             data-tags="check"
+             data-kw="新人 教育 サポート 先輩 処罰 報告">
+      <div class="flex items-start gap-6 mb-8">
+        <span class="sec-num shrink-0" data-n="11">11</span>
+        <div class="pt-2">
+          <div class="t-lbl text-[10px] text-gold/70 mb-2">New Staff</div>
+          <h2 class="jp-h text-xl sm:text-[26px] text-neutral-50">📝 新人スタッフ</h2>
+          <div class="h-px w-24 hairline mt-4"></div>
+        </div>
+      </div>
+      <p class="body-txt mb-8">新人スタッフに対しては、先輩スタッフが適切にサポートしてください。</p>
+      <ul class="body-txt grid sm:grid-cols-2 gap-x-10 gap-y-3 mb-8">
+        <li class="rule-li">店舗ルールを説明する</li>
+        <li class="rule-li">業務方法を教える</li>
+        <li class="rule-li">不明点があれば確認させる</li>
+        <li class="rule-li">無理に一人で判断させない</li>
+      </ul>
+      <div class="note">
+        <p class="body-txt">
+          新人スタッフがルール違反を行った場合は、<strong class="text-gold-light">その場で独断の処罰を行わず、責任者へ報告してください。</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- 12 -->
+    <section id="sec-12" class="card p-7 sm:p-11" data-card data-sec
+             data-n="12" data-title="ルール違反" data-en="Violation"
+             data-alias="violation"
+             data-tags="ban critical"
+             data-kw="違反 処分 注意 警告 降格 解雇 横流し 私的流用 運営処罰">
+      <div class="flex items-start gap-6 mb-8">
+        <span class="sec-num shrink-0" data-n="12">12</span>
+        <div class="pt-2">
+          <div class="t-lbl text-[10px] text-gold/70 mb-2">Violation</div>
+          <h2 class="jp-h text-xl sm:text-[26px] text-neutral-50">⚠️ ルール違反</h2>
+          <div class="h-px w-24 hairline mt-4"></div>
+        </div>
+      </div>
+      <p class="body-txt mb-9">
+        ルール違反が確認された場合、内容・悪質性・故意性・被害状況などを考慮し、以下の対応を行います。
+      </p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-px bg-gold/20 mb-6" data-steps>
+        <div class="step bg-ink-900/90 py-7 text-center">
+          <div class="t-lbl text-[9px] text-gold/60">Step 01</div>
+          <div class="jp-h text-lg text-neutral-100 mt-2">注意</div>
+        </div>
+        <div class="step bg-ink-900/90 py-7 text-center">
+          <div class="t-lbl text-[9px] text-gold/60">Step 02</div>
+          <div class="jp-h text-lg text-neutral-100 mt-2">警告</div>
+        </div>
+        <div class="step bg-ink-900/90 py-7 text-center">
+          <div class="t-lbl text-[9px] text-gold/60">Step 03</div>
+          <div class="jp-h text-lg text-neutral-100 mt-2">降格</div>
+        </div>
+        <div class="step bg-danger/15 py-7 text-center">
+          <div class="t-lbl text-[9px] text-danger/80">Step 04</div>
+          <div class="jp-h text-lg text-danger mt-2">解雇</div>
+        </div>
+      </div>
+      <p class="text-[13px] text-neutral-400 mb-9 tracking-wide">※ ただし、重大な違反については段階を飛ばして処分する場合があります。</p>
+
+      <div class="alert">
+        <p class="jp-h text-danger text-base mb-5 flick">🚨 特に重大な違反</p>
+        <ul class="body-txt space-y-3 mb-6">
+          <li class="rule-li ban-li">店舗資産・専用品の横流し</li>
+          <li class="rule-li ban-li">店舗売上・資産の私的流用</li>
+          <li class="rule-li ban-li">JOB権限を利用した犯罪への加担</li>
+          <li class="rule-li ban-li">顧客車両からのパーツ不正取得</li>
+          <li class="rule-li ban-li">犯罪者の逃走を意図的に支援する行為</li>
+          <li class="rule-li ban-li">メカニックの立場を利用した不正行為</li>
+          <li class="rule-li ban-li">店舗・顧客へ故意に損害を与える行為</li>
+        </ul>
+        <p class="body-txt">
+          これらについては、<strong class="text-danger">即時解雇・運営への報告・運営処罰</strong>となる場合があります。
+        </p>
+      </div>
+    </section>
+
+    <!-- 13 -->
+    <section class="card p-7 sm:p-11" data-card data-sec id="sec-13"
+             data-n="13" data-title="判断に迷った場合" data-en="When In Doubt"
+             data-tags="check"
+             data-kw="判断 迷う 確認 責任者 運営 相談 不安">
+      <div class="flex items-start gap-6 mb-8">
+        <span class="sec-num shrink-0" data-n="13">13</span>
+        <div class="pt-2">
+          <div class="t-lbl text-[10px] text-gold/70 mb-2">When In Doubt</div>
+          <h2 class="jp-h text-xl sm:text-[26px] text-neutral-50">❓ 判断に迷った場合</h2>
+          <div class="h-px w-24 hairline mt-4"></div>
+        </div>
+      </div>
+      <p class="body-txt mb-9">
+        本ルールに記載されていない状況や、判断に迷う場面では、<strong class="text-gold-light">自己判断で進めず店舗責任者または運営へ確認してください。</strong>
+      </p>
+      <div class="grid sm:grid-cols-3 gap-px bg-gold/20 mb-8">
+        <div class="bg-ink-900/90 p-6 text-center">
+          <p class="jp-h text-[14px] text-neutral-100 leading-loose">「これって犯罪への<br>協力にならない？」</p>
+        </div>
+        <div class="bg-ink-900/90 p-6 text-center">
+          <p class="jp-h text-[14px] text-neutral-100 leading-loose">「このパーツを<br>使っていい？」</p>
+        </div>
+        <div class="bg-ink-900/90 p-6 text-center">
+          <p class="jp-h text-[14px] text-neutral-100 leading-loose">「この料金で<br>対応していい？」</p>
+        </div>
+      </div>
+      <p class="body-txt">など、少しでも不安がある場合は事前に確認してください。</p>
+    </section>
+
+    <!-- 検索ヒットなし -->
+    <div id="noResult" class="hidden text-center py-24">
+      <div class="text-5xl mb-6 opacity-40">🔧</div>
+      <p class="jp-h text-lg text-neutral-200 mb-3">該当するルールが見つかりません</p>
+      <p class="body-txt text-neutral-400 mb-8">別のキーワードでお試しください。</p>
+      <button onclick="resetSearch()" class="px-8 py-3 border border-gold/45 bg-ink-950/70 text-gold-light hover:bg-gold/10 transition-colors">
+        <span class="t-lbl text-[11px]">Reset</span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ===================== OUTRO ===================== -->
+  <section id="outro" class="relative py-28 border-t border-gold/15 bg-ink-950/88 backdrop-blur-md">
+    <div class="max-w-3xl mx-auto px-5 sm:px-8 text-center" data-card-plain>
+      <div class="text-5xl mb-8 float">🔧</div>
+      <div class="t-lbl text-[10px] text-gold/70 mb-3">Closing</div>
+      <h2 class="d-en gold-text text-[clamp(2.6rem,7vw,4.5rem)] mb-3">FINALLY</h2>
+      <p class="jp-h text-lg text-neutral-100 mb-8">最後に</p>
+      <div class="h-px w-36 gold-line mx-auto mb-10"></div>
+
+      <p class="lead mb-8">
+        メカニックは、街の車両を支える<strong class="text-gold-light font-bold">白JOB</strong>です。<br>
+        店舗の設備・権限・資産を正しく扱い、<br class="sm:hidden">
+        すべての市民に公平なサービスを提供することを大切にしてください。
+      </p>
+      <p class="jp-h text-[19px] text-gold-light mb-8">一人ひとりの行動が、店舗全体の信用につながります。</p>
+      <p class="lead">
+        ルールを守り、スタッフ同士で協力しながら、<br class="sm:hidden">楽しく信頼されるメカニックを目指しましょう。
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t border-gold/15 py-12 bg-ink-950/94">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-5">
+    <div>
+      <p class="d-en text-lg gold-text">KAGURA MOTOR WORKS</p>
+      <p class="t-lbl text-[9px] text-neutral-500 mt-1">Mechanic Job Rules</p>
+    </div>
+    <a href="#top" data-jump="#top" class="t-lbl text-[10px] text-neutral-400 hover:text-gold transition-colors">▲ Back to Top</a>
+  </div>
+</footer>
+
+<script>
+/* =====================================================================
+   1. Three.js ヒーロー演出
+   ===================================================================== */
+(function initHero3D(){
+  const canvas = document.getElementById('hero3d');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!window.THREE || reduce || !canvas) return;
+
+  let renderer;
+  try{ renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true }); }
+  catch(e){ return; }
+
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  const scene  = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+  camera.position.set(0, 0, 6);
+
+  const uniforms = {
+    uTex:{ value:null }, uRes:{ value:new THREE.Vector2(1,1) },
+    uTexRes:{ value:new THREE.Vector2(1672,941) }, uMouse:{ value:new THREE.Vector2(0,0) },
+    uTime:{ value:0 }, uScroll:{ value:0 }
+  };
+
+  const vert = `varying vec2 vUv;
+    void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }`;
+  const frag = `
+    precision highp float;
+    varying vec2 vUv;
+    uniform sampler2D uTex; uniform vec2 uRes,uTexRes,uMouse; uniform float uTime,uScroll;
+    vec2 coverUV(vec2 uv, vec2 res, vec2 tex){
+      float ra=res.x/res.y, ta=tex.x/tex.y;
+      vec2 s=(ra>ta)?vec2(1.0,ta/ra):vec2(ra/ta,1.0);
+      return (uv-0.5)*s+0.5;
+    }
+    void main(){
+      vec2 uv=coverUV(vUv,uRes,uTexRes);
+      uv+=uMouse*0.016;
+      float z=1.0-0.012*sin(uTime*0.18);
+      uv=(uv-0.5)*z+0.5;
+      float heat=smoothstep(0.45,1.0,vUv.x);
+      uv.x+=sin(uv.y*26.0+uTime*0.7)*0.0011*heat;
+      uv.y+=cos(uv.x*22.0+uTime*0.5)*0.0009*heat;
+      vec4 c=texture2D(uTex,clamp(uv,0.001,0.999));
+      c.rgb *= 1.22;
+      c.rgb = mix(c.rgb, c.rgb*vec3(1.05,0.99,0.90), 0.35);
+      c.rgb *= 1.0 - uScroll*0.22;
+      float d=distance(vUv,vec2(0.5));
+      c.rgb *= smoothstep(1.15,0.30,d)*0.30+0.70;
+      gl_FragColor=vec4(c.rgb,1.0);
+    }`;
+
+  const mat = new THREE.ShaderMaterial({ uniforms, vertexShader:vert, fragmentShader:frag });
+  const plane = new THREE.Mesh(new THREE.PlaneGeometry(1,1), mat);
+  plane.position.z = -8;
+  scene.add(plane);
+
+  const DUST=320, pos=new Float32Array(DUST*3), spd=new Float32Array(DUST);
+  for(let i=0;i<DUST;i++){
+    pos[i*3]=(Math.random()-0.5)*16;
+    pos[i*3+1]=(Math.random()-0.5)*10;
+    pos[i*3+2]=-1-Math.random()*6;
+    spd[i]=0.10+Math.random()*0.28;
+  }
+  const dustGeo=new THREE.BufferGeometry();
+  dustGeo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+  const dustMat=new THREE.PointsMaterial({ color:0xe0b352, size:0.035, transparent:true,
+    opacity:0.5, sizeAttenuation:true, depthWrite:false, blending:THREE.AdditiveBlending });
+  scene.add(new THREE.Points(dustGeo,dustMat));
+
+  new THREE.TextureLoader().load('./assets/bg.png',(tex)=>{
+    tex.minFilter=THREE.LinearFilter; tex.generateMipmaps=false;
+    uniforms.uTex.value=tex;
+    uniforms.uTexRes.value.set(tex.image.width,tex.image.height);
+    canvas.classList.add('ready');
+  });
+
+  function resize(){
+    const host=canvas.parentElement, w=host.clientWidth, h=host.clientHeight;
+    renderer.setSize(w,h,false);
+    camera.aspect=w/h; camera.updateProjectionMatrix();
+    uniforms.uRes.value.set(w,h);
+    const dist=camera.position.z-plane.position.z;
+    const ph=2*Math.tan(THREE.Math.degToRad(camera.fov)/2)*dist;
+    plane.scale.set(ph*camera.aspect*1.12, ph*1.12, 1);
+  }
+  window.addEventListener('resize',resize); resize();
+
+  const mouse={x:0,y:0,tx:0,ty:0};
+  window.addEventListener('pointermove',(e)=>{
+    mouse.tx=(e.clientX/window.innerWidth-0.5)*2;
+    mouse.ty=(e.clientY/window.innerHeight-0.5)*2;
+  },{passive:true});
+  window.addEventListener('deviceorientation',(e)=>{
+    if(e.gamma==null) return;
+    mouse.tx=Math.max(-1,Math.min(1,e.gamma/35));
+    mouse.ty=Math.max(-1,Math.min(1,(e.beta-45)/35));
+  },true);
+
+  let visible=true;
+  new IntersectionObserver((es)=>{ visible=es[0].isIntersecting; },{threshold:0})
+    .observe(document.getElementById('top'));
+
+  const clock=new THREE.Clock();
+  (function loop(){
+    requestAnimationFrame(loop);
+    if(!visible) return;
+    const t=clock.getElapsedTime(), dt=Math.min(clock.getDelta(),0.05);
+    mouse.x+=(mouse.tx-mouse.x)*0.055;
+    mouse.y+=(mouse.ty-mouse.y)*0.055;
+    uniforms.uTime.value=t;
+    uniforms.uMouse.value.set(mouse.x,-mouse.y);
+    uniforms.uScroll.value=Math.min(1, window.scrollY/(window.innerHeight||1));
+    camera.position.x+=(mouse.x*0.42-camera.position.x)*0.05;
+    camera.position.y+=(-mouse.y*0.26-camera.position.y)*0.05;
+    camera.lookAt(0,0,-4);
+    const p=dustGeo.attributes.position.array;
+    for(let i=0;i<DUST;i++){
+      p[i*3+1]+=spd[i]*dt*0.55;
+      p[i*3]+=Math.sin(t*0.5+i)*0.0006;
+      if(p[i*3+1]>5.2){ p[i*3+1]=-5.2; p[i*3]=(Math.random()-0.5)*16; }
+    }
+    dustGeo.attributes.position.needsUpdate=true;
+    dustMat.opacity=0.5*(1-uniforms.uScroll.value);
+    renderer.render(scene,camera);
+  })();
+})();
+
+
+/* =====================================================================
+   2. ルール索引
+   ===================================================================== */
+const secs     = Array.from(document.querySelectorAll('[data-sec]'));
+const input    = document.getElementById('search');
+const clearBtn = document.getElementById('clearBtn');
+const info     = document.getElementById('resultInfo');
+const noResult = document.getElementById('noResult');
+const tocEl    = document.getElementById('toc');
+
+let activeFilter = 'all';
+
+const idx = secs.map(el => ({
+  el, id:el.id, n:el.dataset.n, title:el.dataset.title,
+  tags:(el.dataset.tags||'').split(/\s+/).filter(Boolean),
+  text: norm(el.textContent+' '+(el.dataset.kw||'')+' '+(el.dataset.en||'')+' '+el.dataset.title)
+}));
+
+function norm(s){
+  return s.toLowerCase().replace(/[\u3000\s]+/g,' ')
+    .replace(/[Ａ-Ｚａ-ｚ０-９]/g, c => String.fromCharCode(c.charCodeAt(0)-0xFEE0));
+}
+
+idx.forEach(s=>{
+  const a=document.createElement('a');
+  a.href='#'+s.id; a.className='toc-item';
+  a.dataset.for=s.id; a.dataset.jump='#'+s.id;
+  a.innerHTML=`<span class="toc-bar"></span><span class="toc-label">${s.n}｜${s.title}</span>`;
+  tocEl.appendChild(a);
+});
+const tocItems=Array.from(tocEl.children);
+
+new IntersectionObserver((entries)=>{
+  entries.forEach(en=> tocEl.classList.toggle('show', !en.isIntersecting));
+},{threshold:0.02}).observe(document.getElementById('top'));
+
+function clearHighlight(root){
+  root.querySelectorAll('mark.hl').forEach(m=>m.replaceWith(document.createTextNode(m.textContent)));
+  root.normalize();
+}
+function highlight(root,q){
+  if(!q) return;
+  const re=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{
+    acceptNode(node){
+      if(!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      const p=node.parentElement;
+      if(!p||p.closest('mark.hl')||/SCRIPT|STYLE/.test(p.tagName)) return NodeFilter.FILTER_REJECT;
+      re.lastIndex=0;
+      return re.test(node.nodeValue)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;
+    }
+  });
+  const targets=[]; while(walker.nextNode()) targets.push(walker.currentNode);
+  targets.forEach(node=>{
+    const frag=document.createDocumentFragment();
+    let last=0; re.lastIndex=0; let m;
+    while((m=re.exec(node.nodeValue))!==null){
+      frag.appendChild(document.createTextNode(node.nodeValue.slice(last,m.index)));
+      const mark=document.createElement('mark');
+      mark.className='hl'; mark.textContent=m[0];
+      frag.appendChild(mark);
+      last=m.index+m[0].length;
+      if(m[0].length===0) re.lastIndex++;
+    }
+    frag.appendChild(document.createTextNode(node.nodeValue.slice(last)));
+    node.replaceWith(frag);
+  });
+}
+
+function apply(){
+  const raw=input.value.trim(), q=norm(raw);
+  let hits=0;
+  idx.forEach(s=>{
+    clearHighlight(s.el);
+    const okFilter = activeFilter==='all' || s.tags.includes(activeFilter);
+    const okQuery  = !q || s.text.includes(q);
+    const show = okFilter && okQuery;
+    s.el.classList.toggle('sec-hidden', !show);
+    s.el.classList.toggle('is-hit', show && !!q);
+    if(show){ hits++; if(raw) highlight(s.el, raw); }
+    const t=tocItems.find(i=>i.dataset.for===s.id);
+    if(t) t.classList.toggle('hidden-sec', !show);
+  });
+  noResult.classList.toggle('hidden', hits>0);
+  clearBtn.style.display = raw ? 'block' : 'none';
+  const label = activeFilter==='all' ? '' :
+                activeFilter==='ban' ? ' ／ Prohibited' :
+                activeFilter==='critical' ? ' ／ Critical' : ' ／ Check First';
+  info.textContent = (raw||activeFilter!=='all')
+    ? `${hits} / ${idx.length} Sections${label}${raw?` ・ "${raw}"`:''}`
+    : `${idx.length} Sections`;
+}
+
+let timer;
+input.addEventListener('input',()=>{ clearTimeout(timer); timer=setTimeout(apply,130); });
+clearBtn.addEventListener('click',()=>{ input.value=''; apply(); input.focus(); });
+
+document.querySelectorAll('.fchip').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    activeFilter=btn.dataset.filter;
+    document.querySelectorAll('.fchip').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    apply();
+    jumpTo('#rules');
+  });
+});
+
+function resetSearch(){
+  input.value=''; activeFilter='all';
+  document.querySelectorAll('.fchip').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.fchip[data-filter="all"]').classList.add('active');
+  apply();
+}
+function focusSearch(){
+  jumpTo('#rules');
+  setTimeout(()=>input.focus({preventScroll:true}), 450);
+}
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='/' && document.activeElement!==input){ e.preventDefault(); focusSearch(); }
+  if(e.key==='Escape'){ resetSearch(); input.blur(); }
+});
+
+
+/* =====================================================================
+   3. アンカージャンプ
+   ===================================================================== */
+const ALIASES = { '#violation':'#sec-12' };
+
+function stickyOffset(target){
+  const header=document.getElementById('siteHeader');
+  const bar=document.getElementById('indexbar');
+  let off = header ? header.offsetHeight : 0;
+  if(target && target.hasAttribute('data-sec') && bar) off += bar.offsetHeight;
+  return off + 18;
+}
+
+function jumpTo(hash){
+  const key = ALIASES[hash] || hash;
+  let el = document.querySelector(key);
+  if(!el) el = document.querySelector(`[data-alias="${key.replace('#','')}"]`);
+  if(!el) return false;
+  if(el.classList.contains('sec-hidden')) resetSearch();
+  requestAnimationFrame(()=>{
+    const y = el.getBoundingClientRect().top + window.pageYOffset - stickyOffset(el);
+    window.scrollTo({ top: Math.max(0,y), behavior:'smooth' });
+    if(el.hasAttribute('data-sec')){
+      el.classList.remove('jump-target'); void el.offsetWidth;
+      el.classList.add('jump-target');
+      setTimeout(()=>el.classList.remove('jump-target'), 2000);
+    }
+    history.replaceState(null,'',key);
+  });
+  return true;
+}
+
+document.addEventListener('click',(e)=>{
+  const a=e.target.closest('a[data-jump], a[href^="#"]');
+  if(!a) return;
+  const hash=a.dataset.jump || a.getAttribute('href');
+  if(!hash || hash==='#') return;
+  if(jumpTo(hash)) e.preventDefault();
+});
+window.addEventListener('load',()=>{ if(location.hash) setTimeout(()=>jumpTo(location.hash),300); });
+
+
+/* =====================================================================
+   4. スクロールスパイ / tsParticles / GSAP
+   ===================================================================== */
+const spy=new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      tocItems.forEach(i=>i.classList.toggle('active', i.dataset.for===en.target.id));
+    }
+  });
+},{ rootMargin:'-45% 0px -50% 0px', threshold:0 });
+secs.forEach(s=>spy.observe(s));
+
+tsParticles.load({
+  id:"particles",
+  options:{
+    fullScreen:{ enable:false }, detectRetina:true, fpsLimit:60,
+    particles:{
+      number:{ value:30, density:{ enable:true, area:1000 } },
+      color:{ value:["#e0b352","#ffe9b0","#8a8a8a"] },
+      opacity:{ value:{ min:.04, max:.24 } },
+      size:{ value:{ min:.4, max:2 } },
+      move:{ enable:true, speed:.3, direction:"top", straight:false, outModes:{ default:"out" } }
+    },
+    interactivity:{ events:{ onHover:{ enable:true, mode:"bubble" } },
+      modes:{ bubble:{ distance:130, size:3.5, opacity:.5, duration:2 } } }
+  }
+});
+
+gsap.registerPlugin(ScrollTrigger);
+gsap.from('[data-hero]',{ y:44, opacity:0, duration:1.1, ease:'power3.out', stagger:.13, delay:.25 });
+gsap.to('#bgStage',{ yPercent:8, scale:1.13, ease:'none',
+  scrollTrigger:{ trigger:'body', start:'top top', end:'bottom bottom', scrub:.6 } });
+
+gsap.utils.toArray('[data-card], [data-card-plain]').forEach((el)=>{
+  gsap.from(el,{ y:64, opacity:0, duration:.95, ease:'power3.out',
+    scrollTrigger:{ trigger:el, start:'top 90%', toggleActions:'play none none reverse' } });
+  const n=el.querySelector('.sec-num');
+  if(n) gsap.from(n,{ x:-28, opacity:0, duration:.75, ease:'power2.out',
+    scrollTrigger:{ trigger:el, start:'top 88%' } });
+});
+
+gsap.from('[data-steps] .step',{ scale:.86, opacity:0, duration:.5, ease:'back.out(1.7)', stagger:.11,
+  scrollTrigger:{ trigger:'[data-steps]', start:'top 85%' } });
+
+gsap.to('#progress',{ width:'100%', ease:'none',
+  scrollTrigger:{ trigger:'body', start:'top top', end:'bottom bottom', scrub:true } });
+
+input.addEventListener('input',()=>setTimeout(()=>ScrollTrigger.refresh(),200));
+document.querySelectorAll('.fchip').forEach(b=>b.addEventListener('click',()=>setTimeout(()=>ScrollTrigger.refresh(),200)));
+
+apply();
+</script>
+</body>
+</html>
